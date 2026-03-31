@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Hukum dan Kebijakan Publik</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1410;
+    --parchment: #f5f0e8;
+    --gold: #c8a96e;
+    --gold-light: #e8d5a3;
+    --crimson: #8b1a1a;
+    --slate: #3d3530;
+    --muted: #7a6e65;
+    --rule: #d4c9b8;
+    --accent-bg: #f0ebe0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE TEXTURE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* ─── HEADER / MASTHEAD ─── */
+  header {
+    background: var(--ink);
+    color: var(--parchment);
+    text-align: center;
+    padding: 3rem 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 60px,
+      rgba(200,169,110,0.04) 60px,
+      rgba(200,169,110,0.04) 61px
+    );
+  }
+
+  .masthead-rule {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+  }
+
+  .masthead-rule span {
+    display: block;
+    height: 1px;
+    width: 80px;
+    background: var(--gold);
+  }
+
+  .masthead-ornament {
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  .masthead-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+    color: #fff;
+    position: relative;
+  }
+
+  .masthead-title em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .masthead-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-top: 1.2rem;
+    opacity: 0.8;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    background: var(--crimson);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid var(--gold);
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    display: block;
+    color: var(--parchment);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 1rem 1.4rem;
+    transition: background 0.2s, color 0.2s;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+
+  nav a:hover {
+    background: var(--gold);
+    color: var(--ink);
+  }
+
+  /* ─── HERO QUOTE ─── */
+  .hero-quote {
+    background: var(--ink);
+    color: var(--parchment);
+    text-align: center;
+    padding: 4rem 2rem;
+    border-bottom: 3px solid var(--gold);
+  }
+
+  .hero-quote blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-style: italic;
+    font-weight: 400;
+    max-width: 800px;
+    margin: 0 auto 1.5rem;
+    color: var(--gold-light);
+    line-height: 1.5;
+  }
+
+  .hero-quote cite {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-style: normal;
+  }
+
+  /* ─── MAIN LAYOUT ─── */
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ─── SECTION HEADINGS ─── */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--crimson);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-lead {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 680px;
+    margin-bottom: 3rem;
+    font-style: italic;
+  }
+
+  /* ─── PILLAR SECTION ─── */
+  #pilar {
+    padding: 5rem 0;
+    background: var(--parchment);
+  }
+
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+    background: var(--rule);
+    border: 2px solid var(--rule);
+    margin-top: 1rem;
+  }
+
+  .pillar-card {
+    background: var(--parchment);
+    padding: 2.5rem 2rem;
+    position: relative;
+    transition: background 0.25s;
+    cursor: pointer;
+  }
+
+  .pillar-card:hover { background: var(--accent-bg); }
+
+  .pillar-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--rule);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .pillar-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--crimson);
+  }
+
+  .pillar-card p {
+    color: var(--slate);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .pillar-tag {
+    display: inline-block;
+    margin-top: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 0.25rem 0.6rem;
+  }
+
+  /* ─── MATERI UTAMA ─── */
+  #materi {
+    padding: 5rem 0;
+    background: var(--ink);
+    color: var(--parchment);
+  }
+
+  #materi .section-label { color: var(--gold); }
+  #materi .section-label::after { background: rgba(200,169,110,0.3); }
+  #materi .section-title { color: #fff; }
+  #materi .section-lead { color: rgba(245,240,232,0.6); }
+
+  .materi-accordion {
+    border-top: 1px solid rgba(200,169,110,0.3);
+  }
+
+  .accordion-item {
+    border-bottom: 1px solid rgba(200,169,110,0.3);
+  }
+
+  .accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    cursor: pointer;
+    transition: color 0.2s;
+    gap: 1rem;
+  }
+
+  .accordion-header:hover { color: var(--gold); }
+
+  .accordion-header-left {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+  }
+
+  .acc-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    min-width: 2.5rem;
+  }
+
+  .acc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .acc-icon {
+    color: var(--gold);
+    font-size: 1.5rem;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .accordion-item.open .acc-icon { transform: rotate(45deg); }
+
+  .accordion-body {
+    display: none;
+    padding: 0 0 2rem 4rem;
+  }
+
+  .accordion-item.open .accordion-body { display: block; }
+
+  .accordion-body p {
+    color: rgba(245,240,232,0.8);
+    margin-bottom: 1rem;
+    font-size: 0.97rem;
+  }
+
+  .accordion-body h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin: 1.5rem 0 0.5rem;
+    font-style: italic;
+  }
+
+  .acc-list {
+    list-style: none;
+    margin-top: 0.75rem;
+  }
+
+  .acc-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(200,169,110,0.1);
+    font-size: 0.9rem;
+    color: rgba(245,240,232,0.75);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .acc-list li::before {
+    content: '§';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* ─── KEBIJAKAN PUBLIK SECTION ─── */
+  #kebijakan {
+    padding: 5rem 0;
+    background: var(--accent-bg);
+  }
+
+  .kebijakan-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  @media (max-width: 768px) { .kebijakan-grid { grid-template-columns: 1fr; } }
+
+  .kebijakan-featured {
+    background: var(--crimson);
+    color: var(--parchment);
+    padding: 3rem;
+    position: relative;
+  }
+
+  .kebijakan-featured::before {
+    content: '"';
+    position: absolute;
+    top: -1rem;
+    left: 2rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem;
+    color: rgba(200,169,110,0.2);
+    line-height: 1;
+  }
+
+  .kebijakan-featured h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--gold-light);
+  }
+
+  .kebijakan-featured p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.85);
+  }
+
+  .kebijakan-list-col h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: var(--crimson);
+    font-style: italic;
+  }
+
+  .policy-item {
+    padding: 1.5rem;
+    border-left: 3px solid var(--rule);
+    margin-bottom: 1.5rem;
+    background: var(--parchment);
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .policy-item:hover {
+    border-color: var(--crimson);
+    background: #fff;
+  }
+
+  .policy-item h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+
+  .policy-item p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .policy-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: var(--gold-light);
+    color: var(--ink);
+    padding: 0.2rem 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ─── SIKLUS KEBIJAKAN ─── */
+  #siklus {
+    padding: 5rem 0;
+    background: var(--parchment);
+  }
+
+  .cycle-container {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .cycle-step {
+    flex: 1;
+    min-width: 160px;
+    padding: 2rem 1.5rem;
+    background: var(--ink);
+    color: var(--parchment);
+    text-align: center;
+    position: relative;
+    transition: background 0.25s;
+  }
+
+  .cycle-step:nth-child(even) { background: var(--crimson); }
+
+  .cycle-step:hover { background: var(--gold) !important; color: var(--ink); }
+  .cycle-step:hover .cycle-icon { color: var(--ink); }
+  .cycle-step:hover .cycle-num { color: rgba(26,20,16,0.2); }
+
+  .cycle-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: rgba(245,240,232,0.08);
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: 1;
+  }
+
+  .cycle-icon {
+    font-size: 2rem;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    position: relative;
+  }
+
+  .cycle-step h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    position: relative;
+  }
+
+  .cycle-step p {
+    font-size: 0.78rem;
+    opacity: 0.75;
+    line-height: 1.6;
+    position: relative;
+  }
+
+  /* ─── INSTRUMEN HUKUM ─── */
+  #instrumen {
+    padding: 5rem 0;
+    background: var(--ink);
+    color: var(--parchment);
+  }
+
+  #instrumen .section-label { color: var(--gold); }
+  #instrumen .section-label::after { background: rgba(200,169,110,0.3); }
+  #instrumen .section-title { color: #fff; }
+
+  .instrumen-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .instrumen-table thead tr {
+    background: rgba(200,169,110,0.15);
+    border-bottom: 2px solid var(--gold);
+  }
+
+  .instrumen-table th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 1rem 1.5rem;
+    text-align: left;
+  }
+
+  .instrumen-table td {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(200,169,110,0.1);
+    color: rgba(245,240,232,0.8);
+    vertical-align: top;
+  }
+
+  .instrumen-table tr:hover td { background: rgba(200,169,110,0.05); }
+
+  .instrumen-table td:first-child {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--gold-light);
+    font-style: italic;
+    white-space: nowrap;
+  }
+
+  .level-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid;
+  }
+
+  .level-1 { border-color: var(--gold); color: var(--gold); }
+  .level-2 { border-color: #d4a0a0; color: #d4a0a0; }
+  .level-3 { border-color: #a0b4d4; color: #a0b4d4; }
+  .level-4 { border-color: #a0d4a8; color: #a0d4a8; }
+
+  /* ─── TEORI HUKUM ─── */
+  #teori {
+    padding: 5rem 0;
+    background: var(--accent-bg);
+  }
+
+  .teori-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 900px) { .teori-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .teori-grid { grid-template-columns: 1fr; } }
+
+  .teori-card {
+    background: var(--parchment);
+    padding: 2.5rem 2rem;
+    border-top: 4px solid var(--rule);
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+
+  .teori-card:hover {
+    border-color: var(--crimson);
+    box-shadow: 0 8px 32px rgba(26,20,16,0.12);
+  }
+
+  .teori-card .icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .teori-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: var(--crimson);
+  }
+
+  .teori-card .tokoh {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .teori-card p {
+    font-size: 0.88rem;
+    color: var(--slate);
+    line-height: 1.7;
+  }
+
+  /* ─── KASUS LANDMARK ─── */
+  #kasus {
+    padding: 5rem 0;
+    background: var(--parchment);
+  }
+
+  .kasus-list {
+    margin-top: 2rem;
+  }
+
+  .kasus-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+    transition: background 0.2s;
+  }
+
+  @media (max-width: 600px) { .kasus-item { grid-template-columns: 1fr; gap: 0.5rem; } }
+
+  .kasus-year {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--rule);
+    line-height: 1;
+    padding-top: 0.2rem;
+  }
+
+  .kasus-content h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+  }
+
+  .kasus-content .kasus-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--crimson);
+    margin-bottom: 0.75rem;
+  }
+
+  .kasus-content p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .kasus-impact {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--crimson);
+    font-weight: 600;
+  }
+
+  /* ─── ANALISIS KEBIJAKAN ─── */
+  #analisis {
+    padding: 5rem 0;
+    background: var(--crimson);
+    color: var(--parchment);
+  }
+
+  #analisis .section-label { color: var(--gold); }
+  #analisis .section-label::after { background: rgba(200,169,110,0.3); }
+  #analisis .section-title { color: #fff; }
+
+  .analisis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 768px) { .analisis-grid { grid-template-columns: 1fr; } }
+
+  .analisis-card {
+    border: 1px solid rgba(200,169,110,0.3);
+    padding: 2.5rem;
+  }
+
+  .analisis-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(200,169,110,0.2);
+  }
+
+  .criteria-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(200,169,110,0.1);
+    font-size: 0.88rem;
+  }
+
+  .criteria-row:last-child { border-bottom: none; }
+
+  .criteria-name { color: rgba(245,240,232,0.85); }
+
+  .criteria-bar-outer {
+    width: 120px;
+    height: 4px;
+    background: rgba(200,169,110,0.15);
+    border-radius: 2px;
+  }
+
+  .criteria-bar-inner {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+
+  .analisis-steps {
+    counter-reset: steps;
+    list-style: none;
+  }
+
+  .analisis-steps li {
+    counter-increment: steps;
+    padding: 0.75rem 0;
+    padding-left: 2.5rem;
+    position: relative;
+    font-size: 0.88rem;
+    color: rgba(245,240,232,0.85);
+    border-bottom: 1px solid rgba(200,169,110,0.1);
+    line-height: 1.6;
+  }
+
+  .analisis-steps li::before {
+    content: counter(steps, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--gold);
+    font-weight: 700;
+    top: 0.85rem;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--ink);
+    color: rgba(245,240,232,0.5);
+    padding: 4rem 2rem 2rem;
+  }
+
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+  }
+
+  @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; } }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .footer-brand span { font-style: italic; }
+
+  .footer-desc {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.4);
+  }
+
+  footer h5 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  footer ul { list-style: none; }
+  footer li { margin-bottom: 0.75rem; }
+
+  footer a {
+    color: rgba(245,240,232,0.5);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+
+  footer a:hover { color: var(--gold); }
+
+  .footer-bottom {
+    max-width: 1280px;
+    margin: 3rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(200,169,110,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-bottom p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* ─── PROGRESS BAR ─── */
+  #progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--gold);
+    z-index: 999;
+    transition: width 0.1s;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-in {
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  section { animation: fadeUp 0.6s ease both; }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 600px) {
+    .instrumen-table thead { display: none; }
+    .instrumen-table td { display: block; padding: 0.5rem 1rem; }
+    .instrumen-table tr { border-bottom: 2px solid rgba(200,169,110,0.2); display: block; margin-bottom: 1rem; }
+    nav a { font-size: 0.55rem; padding: 0.75rem 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- ─── MASTHEAD ─── -->
+<header>
+  <div class="masthead-rule">
+    <span></span>
+    <div class="masthead-ornament">Website Mahasiswa</div>
+    <span></span>
+  </div>
+  <h1 class="masthead-title">Hukum <em>& Kebijakan Publik</em></h1>
+  <p class="masthead-subtitle">Hukum · Kebijakan Publik · Tata Negara · Teori & Praktik</p>
+</header>
+
+<!-- ─── NAVIGATION ─── -->
+<nav>
+  <ul>
+    <li><a href="#pilar">Pilar Hukum</a></li>
+    <li><a href="#materi">Materi Utama</a></li>
+    <li><a href="#kebijakan">Kebijakan Publik</a></li>
+    <li><a href="#siklus">Siklus Kebijakan</a></li>
+    <li><a href="#instrumen">Instrumen Hukum</a></li>
+    <li><a href="#teori">Teori Hukum</a></li>
+    <li><a href="#kasus">Kasus Landmark</a></li>
+    <li><a href="#analisis">Analisis Kebijakan</a></li>
+  </ul>
+</nav>
+
+<!-- ─── HERO QUOTE ─── -->
+<div class="hero-quote">
+  <blockquote>
+    "Hukum adalah akal budi tanpa hawa nafsu — kekuasaan yang diatur oleh prinsip, bukan kehendak semata."
+  </blockquote>
+  <cite>Aristoteles — Politik, Buku III</cite>
+</div>
+
+<!-- ─── PILAR HUKUM ─── -->
+<section id="pilar">
+  <div class="container">
+    <div class="section-label">Fondasi</div>
+    <h2 class="section-title">Empat Pilar Sistem Hukum</h2>
+    <p class="section-lead">Setiap sistem hukum modern berdiri di atas empat prinsip fundamental yang saling mengukuhkan.</p>
+
+    <div class="pillar-grid">
+      <div class="pillar-card">
+        <span class="pillar-number">01</span>
+        <h3>Kepastian Hukum</h3>
+        <p>Norma hukum harus jelas, tidak ambigu, dapat diakses publik, dan diterapkan secara konsisten. Rechtszekerheid berarti warga negara dapat memprediksi konsekuensi hukum dari tindakannya.</p>
+        <span class="pillar-tag">Rechtszekerheid</span>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-number">02</span>
+        <h3>Keadilan Hukum</h3>
+        <p>Hukum wajib memperlakukan semua subjek secara proporsional dan tidak diskriminatif. Keadilan distributif membedakan antara kesetaraan formal dengan ekuitas substantif.</p>
+        <span class="pillar-tag">Gerechtigheid</span>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-number">03</span>
+        <h3>Kemanfaatan Hukum</h3>
+        <p>Hukum harus memberikan manfaat nyata bagi kehidupan masyarakat. Utilitarisme hukum menilai norma dari hasil (outcome) terbesar bagi jumlah orang terbanyak.</p>
+        <span class="pillar-tag">Doelmatigheid</span>
+      </div>
+      <div class="pillar-card">
+        <span class="pillar-number">04</span>
+        <h3>Supremasi Hukum</h3>
+        <p>Tidak ada satu pun individu atau institusi yang berada di atas hukum. Rule of Law mengharuskan pemerintahan berdasarkan hukum, bukan berdasarkan kekuasaan belaka.</p>
+        <span class="pillar-tag">Rechtsstaat</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MATERI UTAMA ─── -->
+<section id="materi">
+  <div class="container">
+    <div class="section-label">Konten Inti</div>
+    <h2 class="section-title">Materi Hukum Mendalam</h2>
+    <p class="section-lead">Eksplorasi bidang-bidang hukum dengan analisis substansial melampaui definisi permukaan.</p>
+
+    <div class="materi-accordion">
+
+      <div class="accordion-item open">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-header-left">
+            <span class="acc-num">001</span>
+            <span class="acc-title">Hukum Tata Negara & Konstitusionalisme</span>
+          </div>
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <p>Hukum Tata Negara (HTN) mengatur struktur dan mekanisme negara: pembagian kekuasaan, hak-hak fundamental warga negara, serta hubungan antar lembaga negara. UUD 1945 sebagai konstitusi Indonesia mengalami empat kali amandemen (1999–2002) yang secara fundamental mengubah arsitektur kenegaraan.</p>
+          <h4>Prinsip-Prinsip Konstitusionalisme Modern</h4>
+          <ul class="acc-list">
+            <li><strong>Separation of Powers (Trias Politica):</strong> Pemisahan tegas antara legislatif (DPR/DPD), eksekutif (Presiden), dan yudikatif (MA/MK) untuk mencegah konsentrasi kekuasaan.</li>
+            <li><strong>Checks and Balances:</strong> Mekanisme saling kontrol antar cabang kekuasaan — hak veto, judicial review, interpelasi, dan hak angket.</li>
+            <li><strong>Judicial Review:</strong> Kewenangan Mahkamah Konstitusi menguji undang-undang terhadap UUD 1945 sebagai safeguard norma tertinggi.</li>
+            <li><strong>Hak Asasi Manusia:</strong> Bab XA UUD 1945 memuat 26 pasal tentang HAM yang tidak dapat dikurangi (non-derogable rights) dalam keadaan apapun.</li>
+            <li><strong>Demokrasi Konstitusional:</strong> Kehendak mayoritas dibatasi oleh hak-hak minoritas yang dilindungi konstitusi — tirani mayoritas dicegah melalui supermajority requirements.</li>
+          </ul>
+          <h4>Amandemen UUD 1945: Perubahan Struktural</h4>
+          <p>Amandemen pertama (1999) membatasi kekuasaan Presiden; amandemen kedua (2000) memperkuat otonomi daerah dan HAM; amandemen ketiga (2001) membentuk MK dan KY; amandemen keempat (2002) menghapus Utusan Golongan dari MPR dan membentuk DPD.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-header-left">
+            <span class="acc-num">002</span>
+            <span class="acc-title">Hukum Administrasi Negara</span>
+          </div>
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <p>Hukum Administrasi Negara (HAN) mengatur tindakan pemerintah dalam menjalankan tugas dan wewenangnya. UU No. 30 Tahun 2014 tentang Administrasi Pemerintahan menjadi kodifikasi penting yang menetapkan asas-asas umum pemerintahan yang baik (AUPB).</p>
+          <h4>Asas Umum Pemerintahan Baik (AUPB)</h4>
+          <ul class="acc-list">
+            <li><strong>Asas Kepastian Hukum:</strong> Tindakan administrasi harus berdasarkan ketentuan yang jelas dan tertulis.</li>
+            <li><strong>Asas Kemanfaatan:</strong> Kebijakan harus memberikan manfaat optimal bagi kepentingan umum.</li>
+            <li><strong>Asas Ketidakberpihakan (Impartialitas):</strong> Keputusan diambil tanpa diskriminasi atau favoritisme.</li>
+            <li><strong>Asas Kecermatan:</strong> Pejabat wajib teliti dalam mempersiapkan dan menetapkan keputusan.</li>
+            <li><strong>Asas Tidak Menyalahgunakan Kewenangan (Détournement de Pouvoir):</strong> Wewenang digunakan sesuai tujuan yang ditetapkan hukum.</li>
+            <li><strong>Asas Keterbukaan:</strong> Publik berhak mengakses informasi tentang proses pengambilan keputusan.</li>
+            <li><strong>Asas Proporsionalitas:</strong> Beban yang dikenakan kepada warga tidak melebihi apa yang diperlukan untuk mencapai tujuan.</li>
+          </ul>
+          <h4>Diskresi Administrasi</h4>
+          <p>Freies Ermessen (diskresi) adalah kebebasan pejabat memilih tindakan ketika aturan tidak mengaturnya secara rinci. Diskresi sah apabila tidak melampaui wewenang, tidak bertentangan AUPB, dan berdasarkan itikad baik. Penyalahgunaan diskresi dapat menjadi dasar gugatan PTUN.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-header-left">
+            <span class="acc-num">003</span>
+            <span class="acc-title">Hukum Pidana & Sistem Peradilan</span>
+          </div>
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <p>Hukum pidana merupakan keseluruhan ketentuan yang mengatur apa yang disebut tindak pidana, siapa yang dapat dipidana, dan sanksi apa yang dapat dijatuhkan. KUHP Nasional (UU No. 1 Tahun 2023) menggantikan KUHP warisan kolonial Belanda setelah lebih dari satu abad.</p>
+          <h4>Unsur-Unsur Tindak Pidana</h4>
+          <ul class="acc-list">
+            <li><strong>Actus Reus (Perbuatan):</strong> Tindakan atau kelalaian yang dilarang oleh hukum pidana.</li>
+            <li><strong>Mens Rea (Kesalahan):</strong> Kesengajaan (dolus) atau kelalaian (culpa) sebagai syarat pertanggungjawaban.</li>
+            <li><strong>Melawan Hukum (Wederrechtelijkheid):</strong> Perbuatan tidak memiliki dasar pembenar (rechtvaardigingsgrond).</li>
+            <li><strong>Dapat Dipertanggungjawabkan:</strong> Pelaku memiliki kemampuan bertanggung jawab — tidak dalam keadaan daya paksa atau tidak waras.</li>
+          </ul>
+          <h4>Pembaruan KUHP 2023: Inovasi Substansial</h4>
+          <p>KUHP baru mengintegrasikan hukum adat dalam sistem pidana nasional, menambahkan pidana alternatif (kerja sosial, pengawasan), mengatur tindak pidana korporasi secara komprehensif, dan merevisi delik kesusilaan dengan mempertimbangkan nilai budaya Indonesia.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-header-left">
+            <span class="acc-num">004</span>
+            <span class="acc-title">Hukum Internasional & Hubungannya dengan Hukum Nasional</span>
+          </div>
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <p>Hukum internasional mengatur hubungan antara subjek-subjek hukum internasional — negara, organisasi internasional, dan dalam batas tertentu, individu. Debat monisme versus dualisme menjadi isu sentral dalam memahami posisi hukum internasional di sistem nasional.</p>
+          <h4>Sumber-Sumber Hukum Internasional (Pasal 38 Statuta ICJ)</h4>
+          <ul class="acc-list">
+            <li><strong>Perjanjian Internasional (Treaty):</strong> Perjanjian tertulis antara subjek hukum internasional yang mengikat secara hukum — bilateral maupun multilateral.</li>
+            <li><strong>Kebiasaan Internasional (Custom):</strong> Praktik umum yang diterima sebagai hukum (opinio juris sive necessitatis). Contoh: prinsip non-refoulement pengungsi.</li>
+            <li><strong>Prinsip Hukum Umum:</strong> Prinsip yang diakui oleh bangsa-bangsa beradab — good faith, res judicata, estoppel.</li>
+            <li><strong>Putusan Pengadilan & Ajaran Sarjana:</strong> Sebagai sumber tambahan — yurisprudensi ICJ memiliki otoritas persuasif kuat.</li>
+          </ul>
+          <h4>Indonesia dan Hukum Internasional</h4>
+          <p>Indonesia menganut sistem dualisme: perjanjian internasional baru berlaku di ranah nasional setelah diratifikasi melalui undang-undang atau Perpres. UU No. 24 Tahun 2000 mengatur prosedur ratifikasi dengan mensyaratkan persetujuan DPR untuk perjanjian yang menyangkut kepentingan publik luas.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-header-left">
+            <span class="acc-num">005</span>
+            <span class="acc-title">Otonomi Daerah & Desentralisasi</span>
+          </div>
+          <span class="acc-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <p>Desentralisasi merupakan pengalihan kewenangan dari pemerintah pusat kepada daerah. Indonesia menjalankan sistem desentralisasi asimetris yang memberikan kewenangan khusus kepada Aceh, Papua, DKI Jakarta, dan Yogyakarta.</p>
+          <h4>Tipologi Desentralisasi</h4>
+          <ul class="acc-list">
+            <li><strong>Desentralisasi Politik:</strong> Transfer kewenangan membuat keputusan kepada pejabat terpilih di daerah.</li>
+            <li><strong>Desentralisasi Administratif (Dekonsentrasi):</strong> Pelimpahan kewenangan dari kementerian pusat kepada instansi vertikal di daerah.</li>
+            <li><strong>Desentralisasi Fiskal:</strong> Kewenangan daerah mengelola anggaran sendiri — DAU, DAK, dan PAD.</li>
+            <li><strong>Desentralisasi Pasar (Privatisasi):</strong> Penyerahan fungsi publik kepada sektor swasta melalui konsesi atau PPP.</li>
+          </ul>
+          <h4>Dana Alokasi dan Ketimpangan Fiskal</h4>
+          <p>Ketimpangan fiskal vertikal (pusat vs daerah) dan horizontal (antar daerah) menjadi tantangan utama desentralisasi. Dana Bagi Hasil (DBH) sumber daya alam sering memicu konflik kepentingan, terutama di daerah kaya sumber daya seperti Riau dan Kalimantan Timur.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── KEBIJAKAN PUBLIK ─── -->
+<section id="kebijakan">
+  <div class="container">
+    <div class="section-label">Kebijakan Publik</div>
+    <h2 class="section-title">Dimensi Kebijakan Publik</h2>
+    <p class="section-lead">Kebijakan publik bukan sekadar keputusan — ia adalah proses kompleks yang melibatkan nilai, kepentingan, bukti, dan kekuasaan.</p>
+
+    <div class="kebijakan-grid">
+      <div class="kebijakan-featured">
+        <h3>Apa itu Kebijakan Publik?</h3>
+        <p>Kebijakan publik adalah serangkaian tindakan (dan pilihan untuk tidak bertindak) yang dilakukan oleh aktor pemerintah untuk mengatasi masalah publik. Thomas Dye mendefinisikannya sebagai "apapun yang dipilih pemerintah untuk dilakukan atau tidak dilakukan."</p>
+        <br>
+        <p>Kebijakan publik modern tidak hanya bersifat top-down — ia melibatkan jaringan aktor: pemerintah, CSO, swasta, media, akademisi, dan warga negara dalam governance yang kompleks dan berlapis.</p>
+        <br>
+        <p>Tiga pertanyaan sentral kebijakan publik: <em>Siapa yang mendapatkan apa?</em> <em>Kapan?</em> <em>Bagaimana?</em> — Harold Lasswell, 1936.</p>
+      </div>
+
+      <div class="kebijakan-list-col">
+        <h3>Tipologi Kebijakan Publik</h3>
+
+        <div class="policy-item">
+          <span class="policy-badge">Distributif</span>
+          <h4>Kebijakan Distributif</h4>
+          <p>Mengalokasikan sumber daya, manfaat, atau layanan kepada kelompok tertentu. Contoh: subsidi BBM, program KIP Kuliah, beasiswa LPDP. Biasanya tidak menimbulkan konflik langsung antar kelompok.</p>
+        </div>
+
+        <div class="policy-item">
+          <span class="policy-badge">Redistributif</span>
+          <h4>Kebijakan Redistributif</h4>
+          <p>Mengalihkan sumber daya dari satu kelompok ke kelompok lain. Contoh: pajak progresif, jaminan sosial, reforma agraria. Sering menimbulkan konflik politik karena ada pihak yang dirugikan secara langsung.</p>
+        </div>
+
+        <div class="policy-item">
+          <span class="policy-badge">Regulatif</span>
+          <h4>Kebijakan Regulatif</h4>
+          <p>Mengatur perilaku individu atau organisasi melalui norma dan sanksi. Contoh: regulasi lingkungan, izin usaha, standar keselamatan kerja. Melibatkan biaya kepatuhan (compliance cost) yang perlu dievaluasi.</p>
+        </div>
+
+        <div class="policy-item">
+          <span class="policy-badge">Konstitutif</span>
+          <h4>Kebijakan Konstitutif</h4>
+          <p>Membentuk struktur dan prosedur pemerintahan itu sendiri. Contoh: reformasi birokrasi, otonomi daerah, pembentukan lembaga baru. Mengubah "aturan permainan" dalam proses kebijakan.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SIKLUS KEBIJAKAN ─── -->
+<section id="siklus">
+  <div class="container">
+    <div class="section-label">Model Proses</div>
+    <h2 class="section-title">Siklus Kebijakan Publik</h2>
+    <p class="section-lead">Model siklus (policy cycle) menyederhanakan kompleksitas proses kebijakan ke dalam tahapan yang dapat dianalisis secara sistematis.</p>
+
+    <div class="cycle-container">
+      <div class="cycle-step">
+        <span class="cycle-num">1</span>
+        <div class="cycle-icon">🔍</div>
+        <h4>Identifikasi Masalah</h4>
+        <p>Suatu kondisi menjadi "masalah publik" ketika mendapat perhatian dan dianggap perlu penanganan pemerintah. Agenda setting menentukan isu mana yang masuk radar kebijakan.</p>
+      </div>
+      <div class="cycle-step">
+        <span class="cycle-num">2</span>
+        <div class="cycle-icon">📋</div>
+        <h4>Agenda Setting</h4>
+        <p>Proses di mana isu tertentu mendapat tempat dalam agenda resmi pemerintah. Kingdom (1984) menekankan peran "jendela kebijakan" yang terbuka ketika tiga aliran (problem, policy, politics) bertemu.</p>
+      </div>
+      <div class="cycle-step">
+        <span class="cycle-num">3</span>
+        <div class="cycle-icon">⚙️</div>
+        <h4>Formulasi Kebijakan</h4>
+        <p>Pengembangan alternatif solusi oleh para aktor kebijakan. Melibatkan analisis teknis, negosiasi kepentingan, dan pertimbangan nilai. Advocacy Coalition Framework menjelaskan dinamika ini.</p>
+      </div>
+      <div class="cycle-step">
+        <span class="cycle-num">4</span>
+        <div class="cycle-icon">⚖️</div>
+        <h4>Legitimasi & Adopsi</h4>
+        <p>Pemilihan dan pengesahan alternatif kebijakan melalui proses politik yang sah. Mencakup voting di parlemen, penandatanganan peraturan, atau judicial approval.</p>
+      </div>
+      <div class="cycle-step">
+        <span class="cycle-num">5</span>
+        <div class="cycle-icon">🏛️</div>
+        <h4>Implementasi</h4>
+        <p>Pelaksanaan kebijakan oleh birokrasi dan aktor lain. Pressman & Wildavsky (1973) menunjukkan betapa kompleksnya implementasi: setiap "titik persetujuan" dapat menjadi hambatan.</p>
+      </div>
+      <div class="cycle-step">
+        <span class="cycle-num">6</span>
+        <div class="cycle-icon">📊</div>
+        <h4>Evaluasi & Revisi</h4>
+        <p>Penilaian sistematis terhadap proses dan hasil kebijakan. Evidence-based policy evaluation menggunakan RCT, quasi-experiment, dan mixed methods untuk menilai dampak kausal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── INSTRUMEN HUKUM ─── -->
+<section id="instrumen">
+  <div class="container">
+    <div class="section-label">Hierarki Norma</div>
+    <h2 class="section-title">Hierarki Peraturan Perundang-undangan</h2>
+    <p class="section-lead">UU No. 12 Tahun 2011 jo. UU No. 15 Tahun 2019 menetapkan hierarki norma hukum Indonesia berdasarkan teori Stufenbau Hans Kelsen.</p>
+
+    <table class="instrumen-table">
+      <thead>
+        <tr>
+          <th>Jenis Peraturan</th>
+          <th>Tingkat</th>
+          <th>Pembentuk</th>
+          <th>Substansi Utama</th>
+          <th>Catatan Kritis</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>UUD 1945</td>
+          <td><span class="level-badge level-1">Konstitusi</span></td>
+          <td>MPR (Amandemen)</td>
+          <td>Dasar negara, hak asasi, struktur kekuasaan</td>
+          <td>Norma dasar (Grundnorm) — tidak dapat diuji oleh MK</td>
+        </tr>
+        <tr>
+          <td>Tap MPR</td>
+          <td><span class="level-badge level-1">Supra-UU</span></td>
+          <td>MPR</td>
+          <td>Kebijakan pokok negara yang bersifat fundamental</td>
+          <td>Pasca reformasi, Tap MPR bersifat penetapan, bukan legislasi</td>
+        </tr>
+        <tr>
+          <td>Undang-Undang / Perppu</td>
+          <td><span class="level-badge level-2">Primer</span></td>
+          <td>DPR + Presiden / Presiden</td>
+          <td>Hak warga negara, pidana, keuangan negara</td>
+          <td>Perppu setara UU tapi masa berlakunya terbatas — harus disetujui DPR</td>
+        </tr>
+        <tr>
+          <td>Peraturan Pemerintah</td>
+          <td><span class="level-badge level-2">Delegasi</span></td>
+          <td>Presiden</td>
+          <td>Pelaksanaan undang-undang</td>
+          <td>Tidak boleh melebihi atau bertentangan dengan UU yang mendelegasikannya</td>
+        </tr>
+        <tr>
+          <td>Peraturan Presiden</td>
+          <td><span class="level-badge level-3">Eksekutif</span></td>
+          <td>Presiden</td>
+          <td>Tugas pemerintahan, kebijakan strategis</td>
+          <td>Perpres terkadang digunakan untuk kebijakan yang seharusnya di UU — potensi masalah legitimasi</td>
+        </tr>
+        <tr>
+          <td>Peraturan Daerah (Perda)</td>
+          <td><span class="level-badge level-3">Daerah</span></td>
+          <td>DPRD + Kepala Daerah</td>
+          <td>Urusan daerah, PAD, tata ruang</td>
+          <td>Perda tidak boleh bertentangan dengan kepentingan umum atau peraturan lebih tinggi</td>
+        </tr>
+        <tr>
+          <td>Peraturan Menteri / Kepala Lembaga</td>
+          <td><span class="level-badge level-4">Teknis</span></td>
+          <td>Menteri / Kepala Lembaga</td>
+          <td>Prosedur teknis, standar pelayanan, izin</td>
+          <td>Proliferasi peraturan teknis menjadi hambatan birokrasi — perlu simplifikasi regulasi</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ─── TEORI HUKUM ─── -->
+<section id="teori">
+  <div class="container">
+    <div class="section-label">Filsafat Hukum</div>
+    <h2 class="section-title">Mazhab & Teori Hukum</h2>
+    <p class="section-lead">Memahami hukum membutuhkan fondasi filosofis. Mazhab-mazhab hukum memberikan kerangka berbeda dalam memandang hakikat, sumber, dan tujuan hukum.</p>
+
+    <div class="teori-grid">
+      <div class="teori-card">
+        <span class="icon">🏛️</span>
+        <h3>Positivisme Hukum</h3>
+        <div class="tokoh">John Austin · H.L.A. Hart · Hans Kelsen</div>
+        <p>Hukum adalah perintah dari otoritas yang sah (Austin), atau sistem aturan primer dan sekunder (Hart), atau norma hierarkis berpuncak pada Grundnorm (Kelsen). Hukum dipisahkan tegas dari moralitas — "hukum adalah hukum meski tidak adil."</p>
+      </div>
+      <div class="teori-card">
+        <span class="icon">⚖️</span>
+        <h3>Hukum Alam (Natural Law)</h3>
+        <div class="tokoh">Aristoteles · Thomas Aquinas · Lon Fuller</div>
+        <p>Terdapat prinsip-prinsip moral universal yang lebih tinggi dari hukum positif. Hukum yang bertentangan dengan hukum alam tidak memiliki kekuatan mengikat moral (lex iniusta non est lex). Fuller menekankan "moralitas internal hukum."</p>
+      </div>
+      <div class="teori-card">
+        <span class="icon">🔬</span>
+        <h3>Realisme Hukum</h3>
+        <div class="tokoh">Oliver Holmes · Karl Llewellyn · Jerome Frank</div>
+        <p>Hukum adalah apa yang sebenarnya dilakukan oleh pengadilan dan pejabat, bukan sekadar apa yang tertulis di buku. Holmes: "The life of the law has not been logic; it has been experience." Fokus pada prediksi putusan pengadilan.</p>
+      </div>
+      <div class="teori-card">
+        <span class="icon">🔗</span>
+        <h3>Critical Legal Studies (CLS)</h3>
+        <div class="tokoh">Roberto Unger · Duncan Kennedy · Mark Tushnet</div>
+        <p>Hukum bukan netral atau objektif — ia mencerminkan dan melanggengkan struktur kekuasaan yang ada. Doktrin hukum penuh kontradiksi internal. CLS membuka jalan bagi Critical Race Theory dan Feminist Legal Theory.</p>
+      </div>
+      <div class="teori-card">
+        <span class="icon">💡</span>
+        <h3>Law and Economics</h3>
+        <div class="tokoh">Richard Posner · Ronald Coase · Guido Calabresi</div>
+        <p>Hukum harus dianalisis dan dinilai berdasarkan efisiensi ekonomi. Teorema Coase: jika biaya transaksi nol, alokasi hak tidak mempengaruhi efisiensi. Analisis biaya-manfaat menjadi alat evaluasi regulasi.</p>
+      </div>
+      <div class="teori-card">
+        <span class="icon">🌐</span>
+        <h3>Pluralisme Hukum</h3>
+        <div class="tokoh">Sally Merry · John Griffiths · Masaji Chiba</div>
+        <p>Dalam satu masyarakat dapat berlaku lebih dari satu sistem hukum secara bersamaan — hukum negara, adat, agama, dan hukum rakyat (folk law). Indonesia sebagai negara majemuk adalah laboratorium nyata pluralisme hukum.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── KASUS LANDMARK ─── -->
+<section id="kasus">
+  <div class="container">
+    <div class="section-label">Yurisprudensi</div>
+    <h2 class="section-title">Kasus-Kasus Landmark</h2>
+    <p class="section-lead">Putusan-putusan bersejarah yang membentuk arah hukum dan kebijakan publik Indonesia.</p>
+
+    <div class="kasus-list">
+      <div class="kasus-item">
+        <div class="kasus-year">2003</div>
+        <div class="kasus-content">
+          <div class="kasus-meta">MK · Putusan 003/PUU-I/2003 · Hukum Pidana</div>
+          <h4>Judicial Review UU KPK: Fondasi Pemberantasan Korupsi</h4>
+          <p>Putusan pertama Mahkamah Konstitusi yang menolak permohonan pengujian UU No. 30/2002 tentang KPK. MK menegaskan bahwa pembentukan lembaga independen pemberantasan korupsi konstitusional dan tidak melanggar prinsip kekuasaan kehakiman. Menjadi preseden bagi keabsahan lembaga independen pasca reformasi.</p>
+          <span class="kasus-impact">▲ Dampak: Fondasi konstitusional KPK dan lembaga independen</span>
+        </div>
+      </div>
+
+      <div class="kasus-item">
+        <div class="kasus-year">2008</div>
+        <div class="kasus-content">
+          <div class="kasus-meta">MK · Putusan 28-29/PUU-VI/2008 · Hukum Ekonomi</div>
+          <h4>Pengujian UU Penanaman Modal: Kedaulatan Sumber Daya Alam</h4>
+          <p>MK menafsirkan Pasal 33 UUD 1945 tentang "dikuasai negara" secara komprehensif — bukan hanya pemilikan, tetapi juga pengaturan, pengurusan, pengelolaan, dan pengawasan. Putusan ini menjadi parameter konstitusionalitas kebijakan pengelolaan sumber daya alam dan investasi.</p>
+          <span class="kasus-impact">▲ Dampak: Tafsir konstitusional pengelolaan SDA nasional</span>
+        </div>
+      </div>
+
+      <div class="kasus-item">
+        <div class="kasus-year">2013</div>
+        <div class="kasus-content">
+          <div class="kasus-meta">MK · Putusan 35/PUU-X/2012 · Hukum Adat</div>
+          <h4>Hutan Adat Bukan Hutan Negara: Kemenangan Masyarakat Adat</h4>
+          <p>MK memutuskan bahwa "hutan adat" berbeda dari "hutan negara" — mengoreksi UU No. 41/1999. Masyarakat hukum adat diakui memiliki hak pengelolaan atas hutan di wilayah adatnya. Putusan revolusioner yang membuka jalan bagi pengakuan hak-hak masyarakat adat atas tanah dan sumber daya.</p>
+          <span class="kasus-impact">▲ Dampak: Paradigma baru pengakuan hak masyarakat adat</span>
+        </div>
+      </div>
+
+      <div class="kasus-item">
+        <div class="kasus-year">2017</div>
+        <div class="kasus-content">
+          <div class="kasus-meta">MK · Putusan 91/PUU-XVIII/2020 · Hukum Perburuhan</div>
+          <h4>UU Cipta Kerja Inkonstitusional Bersyarat: Cacat Formil</h4>
+          <p>MK menyatakan UU No. 11/2020 (Omnibus Law Cipta Kerja) "inkonstitusional bersyarat" karena cacat formil dalam proses pembentukan — tidak memenuhi asas keterbukaan dan partisipasi bermakna. Putusan bersejarah yang menegaskan bahwa prosedur pembentukan UU adalah bagian dari konstitusionalitas.</p>
+          <span class="kasus-impact">▲ Dampak: Standar partisipasi bermakna dalam legislasi</span>
+        </div>
+      </div>
+
+      <div class="kasus-item">
+        <div class="kasus-year">2023</div>
+        <div class="kasus-content">
+          <div class="kasus-meta">MK · Putusan 90/PUU-XXI/2023 · Hukum Tata Negara</div>
+          <h4>Perubahan Syarat Usia Capres-Cawapres: Kontroversi Konstitusional</h4>
+          <p>MK memutuskan penambahan pengecualian syarat usia 40 tahun bagi pejabat negara yang pernah terpilih melalui pemilihan. Putusan ini memicu debat akademis intens tentang batas kewenangan MK sebagai negative legislator versus positive legislator, serta isu independensi peradilan.</p>
+          <span class="kasus-impact">▲ Dampak: Perdebatan epistemik tentang batas judicial review</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ANALISIS KEBIJAKAN ─── -->
+<section id="analisis">
+  <div class="container">
+    <div class="section-label">Metodologi</div>
+    <h2 class="section-title">Kerangka Analisis Kebijakan</h2>
+    <p class="section-lead">Analisis kebijakan yang baik memadukan rigor ilmiah dengan kepekaan kontekstual dan pemahaman mendalam tentang dinamika politik.</p>
+
+    <div class="analisis-grid">
+      <div class="analisis-card">
+        <h3>Kriteria Evaluasi Kebijakan (Dunn, 2003)</h3>
+        <div class="criteria-row">
+          <span class="criteria-name">Efektivitas (Effectiveness)</span>
+          <div class="criteria-bar-outer"><div class="criteria-bar-inner" style="width:90%"></div></div>
+        </div>
+        <div class="criteria-row">
+          <span class="criteria-name">Efisiensi (Efficiency)</span>
+          <div class="criteria-bar-outer"><div class="criteria-bar-inner" style="width:75%"></div></div>
+        </div>
+        <div class="criteria-row">
+          <span class="criteria-name">Kecukupan (Adequacy)</span>
+          <div class="criteria-bar-outer"><div class="criteria-bar-inner" style="width:65%"></div></div>
+        </div>
+        <div class="criteria-row">
+          <span class="criteria-name">Perataan (Equity)</span>
+          <div class="criteria-bar-outer"><div class="criteria-bar-inner" style="width:55%"></div></div>
+        </div>
+        <div class="criteria-row">
+          <span class="criteria-name">Responsivitas (Responsiveness)</span>
+          <div class="criteria-bar-outer"><div class="criteria-bar-inner" style="width:70%"></div></div>
+        </div>
+        <div class="criteria-row">
+          <span class="criteria-name">Ketepatan (Appropriateness)</span>
+          <div class="criteria-bar-outer"><div class="criteria-bar-inner" style="width:80%"></div></div>
+        </div>
+      </div>
+
+      <div class="analisis-card">
+        <h3>Langkah-Langkah Analisis Kebijakan</h3>
+        <ol class="analisis-steps">
+          <li>Definisikan masalah secara operasional dan terukur — hindari framing yang bias.</li>
+          <li>Identifikasi semua stakeholders dan pemetaan kepentingan (stakeholder mapping).</li>
+          <li>Kumpulkan bukti empiris melalui data kuantitatif dan kualitatif yang kredibel.</li>
+          <li>Kembangkan minimum tiga alternatif kebijakan — termasuk opsi "tidak berbuat apa-apa" (status quo).</li>
+          <li>Evaluasi setiap alternatif menggunakan kriteria yang telah disepakati stakeholders.</li>
+          <li>Rekomendasikan alternatif terbaik dengan narasi yang mengakui trade-off dan ketidakpastian.</li>
+          <li>Rancang indikator monitoring dan rencana evaluasi ex-ante.</li>
+          <li>Antisipasi resistensi implementasi dan rencanakan strategi mitigasi.</li>
+          <li>Komunikasikan rekomendasi kepada pembuat keputusan dan publik secara efektif.</li>
+          <li>Lakukan review dan pembelajaran pasca implementasi untuk siklus kebijakan berikutnya.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Website Hukum</div>
+      
+<p class="footer-desc">
+2026 Website Hukum dan Kebijakan Publik.<br>
+Website ini dibuat sebagai media pembelajaran bagi mahasiswa hukum.<br><br>
+<b>Lala Putri Syahfithri</b><br>
+NIM: 2306200414
+</p>
+
+    </div>
+    <div>
+      <h5>Navigasi</h5>
+      <ul>
+        <li><a href="#pilar">Pilar Hukum</a></li>
+        <li><a href="#materi">Materi Utama</a></li>
+        <li><a href="#kebijakan">Kebijakan Publik</a></li>
+        <li><a href="#siklus">Siklus Kebijakan</a></li>
+        <li><a href="#instrumen">Instrumen Hukum</a></li>
+        <li><a href="#teori">Teori Hukum</a></li>
+        <li><a href="#kasus">Kasus Landmark</a></li>
+        <li><a href="#analisis">Analisis Kebijakan</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Referensi Utama</h5>
+      <ul>
+        <li><a href="#">UUD 1945 (Amandemen IV)</a></li>
+        <li><a href="#">UU No. 12 Tahun 2011</a></li>
+        <li><a href="#">UU No. 30 Tahun 2014</a></li>
+        <li><a href="#">UU No. 1 Tahun 2023 (KUHP)</a></li>
+        <li><a href="#">Statuta ICJ Pasal 38</a></li>
+        <li><a href="#">Dunn, W.N. — Public Policy Analysis</a></li>
+        <li><a href="#">Hart, H.L.A. — The Concept of Law</a></li>
+        <li><a href="#">Yurisprudensi MK 2003–2023</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Website Hukum dan Kebijakan Publik</p>
+    <p>Edisi Digital · Hanya untuk tujuan akademis</p>
+  </div>
+</footer>
+
+<script>
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const winScroll = document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById('progress-bar').style.width = scrolled + '%';
+  });
+
+  // Accordion
+  function toggleAccordion(header) {
+    const item = header.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Animate criteria bars on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.criteria-bar-inner').forEach(bar => {
+          const width = bar.style.width;
+          bar.style.width = '0';
+          setTimeout(() => { bar.style.width = width; }, 100);
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.analisis-card').forEach(card => observer.observe(card));
+
+  // Smooth scroll for nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>
